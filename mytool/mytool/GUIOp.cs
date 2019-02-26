@@ -100,7 +100,7 @@ namespace mytool
             }
             else
             {
-                this.rstShow.Text += e.Data;
+                this.rstShow.Text += e.Data + "\n";
             }     
         }
         private void PrintErrorOutput(object sender, DataReceivedEventArgs e)
