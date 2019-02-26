@@ -9,15 +9,7 @@ namespace mytool
     partial class mytoolGUI
     {
         GenaralOp go;
-        Dictionary<string, int> ToolRunCount;
-        List<string> paraList;
-        int first_para_id ;
-        string cur_tool_name = "";
-        string search_string = "";
-        string tool_code_dir = @"..\..\tool_code";
-        string run_count_path = @"..\..\data\run_count.rc";
-        string tool_desc_file_name = "tool_desc.td";
-        string default_para_file_name = "default_para.dp";
+
         private void PrintInfoToRstShow(string info)
         {
             this.rstShow.Text = info;
@@ -132,32 +124,32 @@ namespace mytool
             }
             else
             {
-                this.PrintToolDesc(tool_code_dir + "\\" + cur_tool_name + "\\" + tool_desc_file_name);
+                this.PrintToolDesc(go.tool_ini.tool_code_dir + "\\" + go.global_para.cur_tool_name + "\\" + go.global_para.tool_desc_file_name);
             }
         }
         private void user_init()
         {
             go = new GenaralOp();
-            first_para_id = 0;
-            List<string> ToolNameList = go.GetToolNameList(tool_code_dir);
+            go.global_para.first_para_id = 0;
+            List<string> ToolNameList = go.GetToolNameList(go.tool_ini.tool_code_dir);
             if (ToolNameList.Count > 0)
             {
-                this.ToolRunCount = go.GetToolRunCount(ToolNameList, run_count_path);
-                var sortedToolName = go.DictonarySortByValue(this.ToolRunCount);
-                cur_tool_name = sortedToolName[0].Key;
+                go.global_para.ToolRunCount = go.GetToolRunCount(ToolNameList, go.global_para.run_count_path);
+                var sortedToolName = go.DictonarySortByValue(go.global_para.ToolRunCount);
+                go.global_para.cur_tool_name = sortedToolName[0].Key;
                 this.PrintSortedToolName(sortedToolName);
                 this.PrintToolName(sortedToolName[0].Key);
-                this.PrintToolDesc(tool_code_dir + "\\" + sortedToolName[0].Key + "\\" + tool_desc_file_name);
-                List<string> para_list = go.GetParaList(tool_code_dir + "\\" + sortedToolName[0].Key + "\\" + default_para_file_name);
-                paraList = para_list;
-                this.PrintParaList(para_list, first_para_id);
+                this.PrintToolDesc(go.tool_ini.tool_code_dir + "\\" + sortedToolName[0].Key + "\\" + go.global_para.tool_desc_file_name);
+                List<string> para_list = go.GetParaList(go.tool_ini.tool_code_dir + "\\" + sortedToolName[0].Key + "\\" + go.global_para.default_para_file_name);
+                go.global_para.paraList = para_list;
+                this.PrintParaList(para_list, go.global_para.first_para_id);
             }
             else
             {
-                this.ToolRunCount = new Dictionary<string, int>();
-                this.paraList = new List<string>();
-                this.first_para_id = 0;
-                this.PrintParaList(paraList, first_para_id);
+                go.global_para.ToolRunCount = new Dictionary<string, int>();
+                go.global_para.paraList = new List<string>();
+                go.global_para.first_para_id = 0;
+                this.PrintParaList(go.global_para.paraList, go.global_para.first_para_id);
             } 
         }
     }

@@ -148,7 +148,6 @@
             this.searchRst.Name = "searchRst";
             this.searchRst.Size = new System.Drawing.Size(482, 738);
             this.searchRst.TabIndex = 8;
-            this.searchRst.SelectedIndexChanged += new System.EventHandler(this.searchRst_SelectedIndexChanged);
             this.searchRst.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.searchRst_MouseDoubleClick);
             // 
             // cmdText

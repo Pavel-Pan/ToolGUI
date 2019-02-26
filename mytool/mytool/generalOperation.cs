@@ -8,6 +8,9 @@ namespace GeneralOperation
 {
     public class GenaralOp
     {
+        public Config tool_ini;
+        public GlobalPara global_para;
+
         public enum EXE_TYPE
         {
             PYTHON,
@@ -15,11 +18,57 @@ namespace GeneralOperation
             EXE,
             NONE
         }
+        public class Config
+        {
+            public string tool_code_dir;
+            public Config()
+            {
+                StreamReader sr = new StreamReader(@".\ToolGUI.ini");
+                while (!sr.EndOfStream)
+                {
+                    string[] line = sr.ReadLine().Trim().Split(' ');
+                    if (line.Length >= 2)
+                    {
+                        try
+                        {
+                            this.GetType().GetField(line[0]).SetValue(this, line[1]);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("have no para : " + line[0]);
+                        }
+                    }        
+                }
+                sr.Close();
+            }
+        }
+        public class GlobalPara
+        {
+            public Dictionary<string, int> ToolRunCount;
+            public List<string> paraList;
+            public int first_para_id;
+            public string cur_tool_name;
+            public string search_string ;
+            public string run_count_path ;
+            public string tool_desc_file_name ;
+            public string default_para_file_name ;
+            public GlobalPara()
+            {
+                cur_tool_name = "";
+                search_string = "";
+                run_count_path = @".\data\run_count.rc";
+                tool_desc_file_name = "tool_desc.td";
+                default_para_file_name = "default_para.dp";
+            }
+        } ;
+
         public delegate void ExitdInvokeCallback(object sender, EventArgs e);
         public delegate void EventInvokeCallback(object sender, DataReceivedEventArgs e);
-
         public GenaralOp()
-        { }
+        {
+            tool_ini = new Config();
+            global_para = new GlobalPara();
+        }
         public void RunExe(string exe_name, string arg, ExitdInvokeCallback e)
         {
             try
@@ -90,6 +139,10 @@ namespace GeneralOperation
 
             foreach (string sub_dir in sub_dirs)
             {
+                string[] dirName = sub_dir.Split('\\');
+                ToolNameList.Add(dirName[dirName.Length - 1]);
+
+                /*
                 string[] files = Directory.GetFiles(sub_dir, "tool_desc.td");
                 foreach (string file in files)
                 {
@@ -100,6 +153,7 @@ namespace GeneralOperation
                         break;
                     }
                 }
+                */
             }
             return ToolNameList;
         }
@@ -147,6 +201,16 @@ namespace GeneralOperation
 
             sr.Close();
             return RunCount;
+        }
+        public void UpdateRunCount(ref Dictionary<string, int> RunCount, List<string> ToolNameList)
+        {
+            foreach(var v in ToolNameList)
+            {
+                if (RunCount.ContainsKey(v) == false)
+                {
+                    RunCount[v] = 0;
+                }
+            }
         }
         public void UpdateRunCount(ref Dictionary<string, int> RunCount,string ToolName)
         {
@@ -260,5 +324,6 @@ namespace GeneralOperation
             }
             return args;
         }
+
     }
 }
