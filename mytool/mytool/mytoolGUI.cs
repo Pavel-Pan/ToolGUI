@@ -11,12 +11,9 @@ namespace mytool
 {
     public partial class mytoolGUI : Form
     {
-        object ContextMenuSourceControl;
-
         public mytoolGUI()
         {
             InitializeComponent();
-            ContextMenuSourceControl = null;
             user_init();
         }
         private void searchInput_TextChanged(object sender, EventArgs e)
@@ -39,7 +36,7 @@ namespace mytool
             }
             else
             {
-                go.global_para.paraList = go.GetParaList(go.tool_ini.tool_code_dir + "\\" + tool_name + "\\" + go.global_para.tool_desc_file_name);
+                go.global_para.paraList = go.GetParaList(go.tool_ini.tool_code_dir + "\\" + tool_name + "\\" + go.global_para.default_para_file_name);
                 this.PrintParaList(go.global_para.paraList, go.global_para.first_para_id);
                 this.PrintToolName(tool_name);
                 this.PrintToolDesc(go.tool_ini.tool_code_dir + "\\" + tool_name + "\\" + go.global_para.tool_desc_file_name);               
@@ -63,16 +60,6 @@ namespace mytool
             }
             
             go.RunExe("notepad.exe", tool_desc_path, ModifyDescExited);
-        }
-        private void save_para_Click(object sender, EventArgs e)
-        {
-            string para_path = go.tool_ini.tool_code_dir + "\\" + go.global_para.cur_tool_name + "\\" + go.global_para.default_para_file_name;
-            StreamWriter sw = new StreamWriter(para_path);
-            for (int i = 1; i <= go.global_para.paraList.Count; i++)
-            {
-                sw.WriteLine("para " + i.ToString() + ":" + go.global_para.paraList[i-1]);
-            }
-            sw.Close();
         }
         private void paraScroll_Scroll(object sender, ScrollEventArgs e)
         {
@@ -148,33 +135,13 @@ namespace mytool
                 cmd += exe_path + args;
                 this.PrintCmd(cmd);
                 this.rstShow.Clear();
+                string para_path = go.tool_ini.tool_code_dir + "\\" + go.global_para.cur_tool_name + "\\" + go.global_para.default_para_file_name;
+                go.save_para(para_path, go.global_para.paraList);
                 go.RunWithOutput(exe_path, args, exe_type,PrintStandardOutput,PrintErrorOutput);
             }
             else
             {
                 MessageBox.Show("don't find excute file such as .py/.bat/.exe");
-            }
-        }
-
-        private void EditText_Opening(object sender, CancelEventArgs e)
-        {
-            ContextMenuSourceControl = (sender as ContextMenuStrip).SourceControl;
-        }
-
-
-        private void copyToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (ContextMenuSourceControl != null)
-            {
-                (ContextMenuSourceControl as TextBoxBase).Copy();
-            }    
-        }
-
-        private void pasteToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (ContextMenuSourceControl != null)
-            {
-                (ContextMenuSourceControl as TextBoxBase).Paste();
             }
         }
     }

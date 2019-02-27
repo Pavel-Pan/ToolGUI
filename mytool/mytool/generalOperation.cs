@@ -270,17 +270,17 @@ namespace GeneralOperation
             }
             return sd;
         }
-        public List<string> GetParaList(string descFilePath)
+        public List<string> GetParaList(string paraFilePath)
         {
             List<string> para_list = new List<string>();
   
-            if (File.Exists(descFilePath))
+            if (File.Exists(paraFilePath))
             {
-                StreamReader sr = new StreamReader(descFilePath);
+                StreamReader sr = new StreamReader(paraFilePath);
                 int para_id = 1;
                 while (!sr.EndOfStream)
                 {
-                    string[] line_info = sr.ReadLine().Split(':');
+                    string[] line_info = sr.ReadLine().Split(',');
                     if (line_info.Length>=1)
                     {
                         if (line_info[0] == "para " + para_id.ToString())
@@ -323,6 +323,15 @@ namespace GeneralOperation
                 args += " " + v;
             }
             return args;
+        }
+        public void save_para(string para_path, List<string> paraList)
+        {
+            StreamWriter sw = new StreamWriter(para_path);
+            for (int i = 1; i <= paraList.Count; i++)
+            {
+                sw.WriteLine("para " + i.ToString() + "," + paraList[i - 1]);
+            }
+            sw.Close();
         }
 
     }

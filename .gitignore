@@ -1,2 +1,5 @@
 .vs/
 obj/
+*.rc
+*.vshost.*
+*.exe.config
