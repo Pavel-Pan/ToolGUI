@@ -45,6 +45,10 @@
             this.para_label3 = new System.Windows.Forms.Label();
             this.paraScroll = new System.Windows.Forms.VScrollBar();
             this.EditMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.open1 = new System.Windows.Forms.Button();
+            this.open2 = new System.Windows.Forms.Button();
+            this.open3 = new System.Windows.Forms.Button();
+            this.open_work_path = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmdDesc
@@ -77,7 +81,9 @@
             this.searchInput.Name = "searchInput";
             this.searchInput.Size = new System.Drawing.Size(362, 31);
             this.searchInput.TabIndex = 2;
+            this.searchInput.Click += new System.EventHandler(this.searchInput_Click);
             this.searchInput.TextChanged += new System.EventHandler(this.searchInput_TextChanged);
+            this.searchInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchInput_KeyDown);
             // 
             // tool_name_label
             // 
@@ -114,6 +120,9 @@
             this.searchRst.Name = "searchRst";
             this.searchRst.Size = new System.Drawing.Size(362, 629);
             this.searchRst.TabIndex = 8;
+            this.searchRst.MouseClick += new System.Windows.Forms.MouseEventHandler(this.searchRst_MouseClick);
+            this.searchRst.SelectedIndexChanged += new System.EventHandler(this.searchRst_SelectedIndexChanged);
+            this.searchRst.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchRst_KeyDown);
             this.searchRst.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.searchRst_MouseDoubleClick);
             // 
             // cmdText
@@ -130,10 +139,10 @@
             // 
             // run
             // 
-            this.run.Location = new System.Drawing.Point(718, 180);
+            this.run.Location = new System.Drawing.Point(851, 180);
             this.run.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.run.Name = "run";
-            this.run.Size = new System.Drawing.Size(310, 31);
+            this.run.Size = new System.Drawing.Size(177, 31);
             this.run.TabIndex = 12;
             this.run.Text = "RUN";
             this.run.UseVisualStyleBackColor = true;
@@ -145,7 +154,7 @@
             this.addDesc.Location = new System.Drawing.Point(375, 180);
             this.addDesc.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.addDesc.Name = "addDesc";
-            this.addDesc.Size = new System.Drawing.Size(322, 31);
+            this.addDesc.Size = new System.Drawing.Size(205, 31);
             this.addDesc.TabIndex = 15;
             this.addDesc.Text = "modify tool description";
             this.addDesc.UseVisualStyleBackColor = true;
@@ -155,7 +164,7 @@
             // 
             this.para_label1.AutoSize = true;
             this.para_label1.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.para_label1.Location = new System.Drawing.Point(375, 226);
+            this.para_label1.Location = new System.Drawing.Point(376, 226);
             this.para_label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.para_label1.Name = "para_label1";
             this.para_label1.Size = new System.Drawing.Size(51, 19);
@@ -169,7 +178,7 @@
             this.paraValue1.Location = new System.Drawing.Point(436, 220);
             this.paraValue1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.paraValue1.Name = "paraValue1";
-            this.paraValue1.Size = new System.Drawing.Size(567, 26);
+            this.paraValue1.Size = new System.Drawing.Size(501, 26);
             this.paraValue1.TabIndex = 19;
             this.paraValue1.TextChanged += new System.EventHandler(this.paraValue1_TextChanged);
             // 
@@ -177,10 +186,10 @@
             // 
             this.paraValue2.BackColor = System.Drawing.SystemColors.Menu;
             this.paraValue2.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.paraValue2.Location = new System.Drawing.Point(436, 261);
+            this.paraValue2.Location = new System.Drawing.Point(436, 260);
             this.paraValue2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.paraValue2.Name = "paraValue2";
-            this.paraValue2.Size = new System.Drawing.Size(567, 26);
+            this.paraValue2.Size = new System.Drawing.Size(501, 26);
             this.paraValue2.TabIndex = 20;
             this.paraValue2.TextChanged += new System.EventHandler(this.paraValue2_TextChanged);
             // 
@@ -191,7 +200,7 @@
             this.paraValue3.Location = new System.Drawing.Point(436, 296);
             this.paraValue3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.paraValue3.Name = "paraValue3";
-            this.paraValue3.Size = new System.Drawing.Size(567, 26);
+            this.paraValue3.Size = new System.Drawing.Size(501, 26);
             this.paraValue3.TabIndex = 21;
             this.paraValue3.TextChanged += new System.EventHandler(this.paraValue3_TextChanged);
             // 
@@ -199,7 +208,7 @@
             // 
             this.para_label2.AutoSize = true;
             this.para_label2.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.para_label2.Location = new System.Drawing.Point(375, 265);
+            this.para_label2.Location = new System.Drawing.Point(376, 264);
             this.para_label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.para_label2.Name = "para_label2";
             this.para_label2.Size = new System.Drawing.Size(51, 19);
@@ -210,7 +219,7 @@
             // 
             this.para_label3.AutoSize = true;
             this.para_label3.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.para_label3.Location = new System.Drawing.Point(375, 302);
+            this.para_label3.Location = new System.Drawing.Point(376, 302);
             this.para_label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.para_label3.Name = "para_label3";
             this.para_label3.Size = new System.Drawing.Size(51, 19);
@@ -219,8 +228,10 @@
             // 
             // paraScroll
             // 
+            this.paraScroll.AllowDrop = true;
+            this.paraScroll.CausesValidation = false;
             this.paraScroll.LargeChange = 1;
-            this.paraScroll.Location = new System.Drawing.Point(1004, 218);
+            this.paraScroll.Location = new System.Drawing.Point(996, 219);
             this.paraScroll.Maximum = 6;
             this.paraScroll.Name = "paraScroll";
             this.paraScroll.Size = new System.Drawing.Size(31, 105);
@@ -237,12 +248,61 @@
             this.EditMenuStrip.TabIndex = 26;
             this.EditMenuStrip.Text = "menuStrip1";
             // 
+            // open1
+            // 
+            this.open1.Location = new System.Drawing.Point(944, 219);
+            this.open1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.open1.Name = "open1";
+            this.open1.Size = new System.Drawing.Size(49, 28);
+            this.open1.TabIndex = 27;
+            this.open1.Text = "open";
+            this.open1.UseVisualStyleBackColor = true;
+            this.open1.Click += new System.EventHandler(this.open1_Click);
+            // 
+            // open2
+            // 
+            this.open2.Location = new System.Drawing.Point(944, 258);
+            this.open2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.open2.Name = "open2";
+            this.open2.Size = new System.Drawing.Size(49, 28);
+            this.open2.TabIndex = 28;
+            this.open2.Text = "open";
+            this.open2.UseVisualStyleBackColor = true;
+            this.open2.Click += new System.EventHandler(this.open2_Click);
+            // 
+            // open3
+            // 
+            this.open3.Location = new System.Drawing.Point(944, 295);
+            this.open3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.open3.Name = "open3";
+            this.open3.Size = new System.Drawing.Size(49, 28);
+            this.open3.TabIndex = 29;
+            this.open3.Text = "open";
+            this.open3.UseVisualStyleBackColor = true;
+            this.open3.Click += new System.EventHandler(this.open3_Click);
+            // 
+            // open_work_path
+            // 
+            this.open_work_path.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.open_work_path.Location = new System.Drawing.Point(624, 180);
+            this.open_work_path.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.open_work_path.Name = "open_work_path";
+            this.open_work_path.Size = new System.Drawing.Size(177, 31);
+            this.open_work_path.TabIndex = 30;
+            this.open_work_path.Text = "open work path";
+            this.open_work_path.UseVisualStyleBackColor = true;
+            this.open_work_path.Click += new System.EventHandler(this.open_work_path_Click);
+            // 
             // mytoolGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1036, 739);
             this.Controls.Add(this.paraScroll);
+            this.Controls.Add(this.open_work_path);
+            this.Controls.Add(this.open3);
+            this.Controls.Add(this.open2);
+            this.Controls.Add(this.open1);
             this.Controls.Add(this.para_label3);
             this.Controls.Add(this.para_label2);
             this.Controls.Add(this.paraValue3);
@@ -291,6 +351,10 @@
         private System.Windows.Forms.Label para_label3;
         internal System.Windows.Forms.VScrollBar paraScroll;
         private System.Windows.Forms.MenuStrip EditMenuStrip;
+        private System.Windows.Forms.Button open1;
+        private System.Windows.Forms.Button open2;
+        private System.Windows.Forms.Button open3;
+        private System.Windows.Forms.Button open_work_path;
     }
 }
 

@@ -124,7 +124,7 @@ namespace mytool
             }
             else
             {
-                this.PrintToolDesc(go.tool_ini.tool_code_dir + "\\" + go.global_para.cur_tool_name + "\\" + go.global_para.tool_desc_file_name);
+                this.PrintToolDesc(go.tool_ini.tool_desc_dir + "\\" + go.global_para.cur_tool_name + "\\" + go.global_para.tool_desc_file_name);
             }
         }
         private void user_init()
@@ -139,8 +139,8 @@ namespace mytool
                 go.global_para.cur_tool_name = sortedToolName[0].Key;
                 this.PrintSortedToolName(sortedToolName);
                 this.PrintToolName(sortedToolName[0].Key);
-                this.PrintToolDesc(go.tool_ini.tool_code_dir + "\\" + sortedToolName[0].Key + "\\" + go.global_para.tool_desc_file_name);
-                List<string> para_list = go.GetParaList(go.tool_ini.tool_code_dir + "\\" + sortedToolName[0].Key + "\\" + go.global_para.default_para_file_name);
+                this.PrintToolDesc(go.tool_ini.tool_desc_dir + "\\" + sortedToolName[0].Key + "\\" + go.global_para.tool_desc_file_name);
+                List<string> para_list = go.GetParaList(go.tool_ini.tool_desc_dir + "\\" + sortedToolName[0].Key + "\\" + go.global_para.default_para_file_name);
                 go.global_para.paraList = para_list;
                 this.PrintParaList(para_list, go.global_para.first_para_id);
             }
@@ -150,6 +150,7 @@ namespace mytool
                 go.global_para.paraList = new List<string>();
                 go.global_para.first_para_id = 0;
                 this.PrintParaList(go.global_para.paraList, go.global_para.first_para_id);
+   
             } 
         }
     }

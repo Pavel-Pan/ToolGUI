@@ -21,6 +21,7 @@ namespace GeneralOperation
         public class Config
         {
             public string tool_code_dir;
+            public string tool_desc_dir;
             public Config()
             {
                 StreamReader sr = new StreamReader(@".\ToolGUI.ini");
@@ -56,7 +57,7 @@ namespace GeneralOperation
             {
                 cur_tool_name = "";
                 search_string = "";
-                run_count_path = @".\data\run_count.rc";
+                run_count_path = @".\run_count.rc";
                 tool_desc_file_name = "tool_desc.td";
                 default_para_file_name = "default_para.dp";
             }
@@ -79,12 +80,15 @@ namespace GeneralOperation
                 pro.StartInfo.CreateNoWindow = true;
                 pro.StartInfo.UseShellExecute = false;
                 pro.EnableRaisingEvents = true;
-                pro.Exited += new EventHandler(e);
+                if (e != null)
+                {
+                    pro.Exited += new EventHandler(e);
+                }
                 pro.Start();
             }
             catch
             {
-                MessageBox.Show("excute " + exe_name + arg + " failed!");
+                MessageBox.Show("excute " + exe_name + " " + arg + " failed!");
             }
         }
         public void RunWithOutput(string exe_name, string arg, EXE_TYPE exe_type, 
@@ -140,20 +144,15 @@ namespace GeneralOperation
             foreach (string sub_dir in sub_dirs)
             {
                 string[] dirName = sub_dir.Split('\\');
-                ToolNameList.Add(dirName[dirName.Length - 1]);
+                //ToolNameList.Add(dirName[dirName.Length - 1]);
 
-                /*
-                string[] files = Directory.GetFiles(sub_dir, "tool_desc.td");
+                string[] files = Directory.GetFiles(sub_dir, dirName[dirName.Length - 1]+"*");
                 foreach (string file in files)
                 {
-                    if (Path.GetFileName(file) == "tool_desc.td")
-                    {
-                        string[] dirName = sub_dir.Split('\\');
-                        ToolNameList.Add(dirName[dirName.Length -1]);
-                        break;
-                    }
+                    ToolNameList.Add(dirName[dirName.Length - 1]);
+                    break;
                 }
-                */
+                
             }
             return ToolNameList;
         }
@@ -326,6 +325,11 @@ namespace GeneralOperation
         }
         public void save_para(string para_path, List<string> paraList)
         {
+            if(Directory.Exists(Path.GetDirectoryName(para_path)) == false)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(para_path));
+            }
+
             StreamWriter sw = new StreamWriter(para_path);
             for (int i = 1; i <= paraList.Count; i++)
             {
